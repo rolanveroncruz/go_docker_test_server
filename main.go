@@ -13,11 +13,12 @@ type StringResponse struct {
 }
 
 func main() {
+	var portStr string
 	err := godotenv.Load()
 	if err != nil {
-		panic(err)
+		println("Error loading .env file")
 	}
-	portStr := ":" + os.Getenv("PORT")
+	portStr = ":" + os.Getenv("PORT")
 
 	mux_router := mux.NewRouter()
 	mux_router.HandleFunc("/ping", ping)
@@ -28,7 +29,7 @@ func main() {
 	}
 }
 
-func ping(w http.ResponseWriter, r *http.Request) {
+func ping(w http.ResponseWriter, _ *http.Request) {
 	response := StringResponse{
 		Message: "Hello, World!",
 	}
